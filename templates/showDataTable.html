@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{title}}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static',filename='js/jquery-1.11.3.min.js')}}"></script>
+    <script src="{{ url_for('static',filename='js/bootstrap.min.js')}}"></script>
+    <style>
+        h1{ margin-top:5%;
+        margin-bottom:-8%;
+        margin-left:10%;
+        font-size:1.5em;
+        }
+        table{
+        table-layout:fixed;
+        header:fixed;
+        }
+
+        .div-table-content {
+        height:450px;
+        overflow-y:auto;
+        }
+    </style>
+    <script> $('.table > .table-striped thead') > .filter(':last').css('background-color', '#FF0000')</script>
+</head>
+<body>
+
+<h1>Raw Data Table</h1>
+<div class="div-table-content " style="margin:10%;">
+    {{ data.to_html(classes="table table-striped") | safe}}
+</div>
+
+<h1>Correlation Matrix</h1>
+<div style="margin:10%">
+{{ data_corr.to_html(classes="table table-striped")|safe }}
+</div>
+
+
+<h1>Descriptive Statistics for Original variables</h1>
+<div style="margin:10%;">
+    {% block content %}
+    {{ data_dsc.to_html(classes="table table-striped") | safe}}
+    {% endblock %}
+</div>
+
+<h1>Eigen Values</h1>
+<div style="margin:10%">
+    {{ w.to_html(classes="table table-striped")|safe }}
+</div>
+<h1>Eigen Vector</h1>
+<div style="margin:10%">
+{{ v.to_html(classes="table table-striped")|safe }}
+</div>
+
+
+</body>
+</html>
